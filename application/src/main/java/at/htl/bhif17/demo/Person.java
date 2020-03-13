@@ -2,6 +2,7 @@ package at.htl.bhif17.demo;
 import javafx.beans.property.SimpleStringProperty;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 public class Person {
@@ -23,6 +24,10 @@ public class Person {
             this.person = new Person();
         }
 
+        public Builder id(Integer id) {
+            person.id = id;
+            return this;
+        }
         public Builder firstName(String first) {
             person.firstName = first;
             return this;
@@ -70,5 +75,21 @@ public class Person {
                 ", lastName='" + lastName + '\'' +
                 ", matNr='" + matNr + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Person)) return false;
+        Person person = (Person) o;
+        return Objects.equals(id, person.id) &&
+                Objects.equals(firstName, person.firstName) &&
+                Objects.equals(lastName, person.lastName) &&
+                Objects.equals(matNr, person.matNr);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, matNr);
     }
 }
