@@ -1,6 +1,7 @@
 package at.htl.bhif17.demo.model;
 
 import javax.persistence.Entity;
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +15,8 @@ public class Person {
     private String firstName;
     private String lastName;
     private String matNr;
+    @Column(name = "school_id")
+    private int schoolId;
 
     public static Builder builder() {
         return new Builder();
@@ -35,6 +38,10 @@ public class Person {
         }
         public Builder matNr(String mat) {
             person.matNr = mat;
+            return this;
+        }
+        public Builder schoolId(int schoolId) {
+            person.schoolId = schoolId;
             return this;
         }
         public Person build() {
@@ -62,6 +69,12 @@ public class Person {
     }
     public void setMatNr(String matNr) {
         this.matNr = matNr;
+    }
+    public int getSchoolId() {
+        return schoolId;
+    }
+    public void setSchoolId(int schoolId) {
+        this.schoolId = schoolId;
     }
 
     @Override

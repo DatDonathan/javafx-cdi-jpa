@@ -17,6 +17,11 @@ public class PersonDao {
     public List<Person> getAll() {
         return em.createQuery("select p from Person p order by p.lastName, p.firstName, p.matNr", Person.class).getResultList();
     }
+
+    public Person findById(int id) {
+        return em.find(Person.class, id);
+    }
+
     public Person save(Person person) {
         return em.merge(person);
     }
