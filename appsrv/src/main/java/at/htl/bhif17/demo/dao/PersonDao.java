@@ -25,4 +25,8 @@ public class PersonDao {
     public Person save(Person person) {
         return em.merge(person);
     }
+
+    public void delete(Person person) {
+        em.remove(person);
+    }
 }

@@ -1,10 +1,7 @@
 package at.htl.bhif17.demo.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.json.bind.annotation.JsonbTransient;
+import javax.persistence.*;
 
 @Entity
 public class Person {
@@ -15,8 +12,9 @@ public class Person {
     private String firstName;
     private String lastName;
     private String matNr;
-    @Column(name = "school_id")
-    private int schoolId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "school_id")
+    private School school;
 
     public static Builder builder() {
         return new Builder();
@@ -40,8 +38,8 @@ public class Person {
             person.matNr = mat;
             return this;
         }
-        public Builder schoolId(int schoolId) {
-            person.schoolId = schoolId;
+        public Builder school(School school) {
+            person.school = school;
             return this;
         }
         public Person build() {
@@ -70,11 +68,12 @@ public class Person {
     public void setMatNr(String matNr) {
         this.matNr = matNr;
     }
-    public int getSchoolId() {
-        return schoolId;
+    @JsonbTransient
+    public School getSchool() {
+        return school;
     }
-    public void setSchoolId(int schoolId) {
-        this.schoolId = schoolId;
+    public void setSchool(School school) {
+        this.school = school;
     }
 
     @Override
